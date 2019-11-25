@@ -7,6 +7,7 @@ gem 'rails', '~> 5.2.3'
 
 gem 'devise', '4.7.1'
 gem 'devise-jwt', '0.6.0'
+gem 'fast_jsonapi', '1.5'
 gem 'pg', '>= 0.18', '< 2.0'
 gem 'puma', '3.11'
 
