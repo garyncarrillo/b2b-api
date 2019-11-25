@@ -5,8 +5,11 @@ ruby '2.6.4'
 
 gem 'rails', '~> 5.2.3'
 
+gem 'devise', '4.7.1'
+gem 'devise-jwt', '0.6.0'
 gem 'pg', '>= 0.18', '< 2.0'
 gem 'puma', '3.11'
+
 gem 'bootsnap', '>= 1.1.0', require: false
 
 # Use Rack CORS for handling Cross-Origin Resource Sharing (CORS), making cross-origin AJAX possible
@@ -14,6 +17,7 @@ gem 'bootsnap', '>= 1.1.0', require: false
 
 group :development, :test do
   gem 'byebug', platforms: [:mri, :mingw, :x64_mingw]
+  gem 'dotenv-rails'
 end
 
 group :development do
