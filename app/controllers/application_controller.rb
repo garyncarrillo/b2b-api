@@ -1,4 +1,6 @@
 class ApplicationController < ActionController::API
+  include Pagy::Backend
+  
   def render_resource(resource)
     if resource.errors.empty?
       render json: UserSerializer.new(resource)

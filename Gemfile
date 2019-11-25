@@ -11,6 +11,7 @@ gem 'fast_jsonapi', '1.5'
 gem 'pg', '>= 0.18', '< 2.0'
 gem 'puma', '3.11'
 gem 'ransack', '2.3'
+gem 'pagy', '3.7'
 
 gem 'bootsnap', '>= 1.1.0', require: false
 
