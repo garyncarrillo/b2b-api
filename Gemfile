@@ -10,6 +10,7 @@ gem 'devise-jwt', '0.6.0'
 gem 'fast_jsonapi', '1.5'
 gem 'pg', '>= 0.18', '< 2.0'
 gem 'puma', '3.11'
+gem 'rack-cors', '1.1.0'
 gem 'ransack', '2.3'
 gem 'pagy', '3.7'
 
