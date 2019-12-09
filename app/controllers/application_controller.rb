@@ -1,6 +1,8 @@
 class ApplicationController < ActionController::API
   include Pagy::Backend
-  
+
+  before_action :authenticate_user!
+
   def render_resource(resource)
     if resource.errors.empty?
       render json: UserSerializer.new(resource)
