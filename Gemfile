@@ -3,16 +3,16 @@ git_source(:github) { |repo| "https://github.com/#{repo}.git" }
 
 ruby '2.6.4'
 
-gem 'rails', '~> 5.2.3'
+gem 'rails', '6.0.1'
 
 gem 'devise', '4.7.1'
 gem 'devise-jwt', '0.6.0'
 gem 'fast_jsonapi', '1.5'
-gem 'pg', '>= 0.18', '< 2.0'
-gem 'puma', '3.11'
-gem 'rack-cors', '1.1.0'
-gem 'ransack', '2.3'
-gem 'pagy', '3.7'
+gem 'pg', '1.2.2'
+gem 'puma', '4.3.1'
+gem 'rack-cors', '1.1.1'
+gem 'ransack', '2.3.2'
+gem 'pagy', '3.7.2'
 
 gem 'bootsnap', '>= 1.1.0', require: false
 
