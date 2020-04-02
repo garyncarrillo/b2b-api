@@ -2,7 +2,7 @@ class CategoriesController < ApplicationController
 
   def index
     categories = Category.ransack(params[:q])
-    categories.sorts  = ' name asc'
+    categories.sorts  = 'name asc'
     pagy, records = pagy(categories.result, items: params[:items] || 5, page: params[:page])
     render json: { categories: CategorySerializer.new(records), metadata: generate_pagination_metadata(pagy) }, status: 200
   end
@@ -34,7 +34,7 @@ class CategoriesController < ApplicationController
 
   def destroy
     category =  Category.find(params[:id])
-    
+
     begin
       category.destroy
     rescue => e
