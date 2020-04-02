@@ -31,3 +31,4 @@
 
 en:
   hello: "Hello world"
+  cant_be_deleted: 'Something went wrong, please contact your administrator'

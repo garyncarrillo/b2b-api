@@ -199,17 +199,17 @@ PLATFORMS
 DEPENDENCIES
   bootsnap (>= 1.1.0)
   byebug
-  devise
-  devise-jwt
+  devise (= 4.7.1)
+  devise-jwt (= 0.6.0)
   dotenv-rails
-  fast_jsonapi
+  fast_jsonapi (= 1.5)
   listen (>= 3.0.5, < 3.2)
-  pagy
-  pg
-  puma
-  rack-cors
+  pagy (= 3.7.2)
+  pg (= 1.2.2)
+  puma (= 4.3.1)
+  rack-cors (= 1.1.1)
   rails (= 6.0.1)
-  ransack
+  ransack (= 2.3.2)
   spring
   spring-watcher-listen (~> 2.0.0)
   tzinfo-data
@@ -218,4 +218,4 @@ RUBY VERSION
    ruby 2.6.4p104
 
 BUNDLED WITH
-   1.17.2
+   1.17.3

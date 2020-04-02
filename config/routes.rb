@@ -14,6 +14,7 @@ Rails.application.routes.draw do
                registrations: 'registrations',
                passwords: 'passwords',
              }
-             
+
   resource :users, only: %i(show)
+  resources :categories, only: %i(index  create destroy show update)
 end
