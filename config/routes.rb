@@ -18,4 +18,5 @@ Rails.application.routes.draw do
   resource :users, only: %i(show)
   resources :categories, except: %i(new edit)
   resources :articles, except: %i(new edit)
+  resources :auctions, except: %i(new edit)
 end
