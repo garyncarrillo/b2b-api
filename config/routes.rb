@@ -14,6 +14,7 @@ Rails.application.routes.draw do
                registrations: 'registrations',
                passwords: 'passwords',
              }
-             
+
   resource :users, only: %i(show)
+  resources :categories, except: %i(new edit)
 end

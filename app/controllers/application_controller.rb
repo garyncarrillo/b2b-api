@@ -23,4 +23,19 @@ class ApplicationController < ActionController::API
       ]
     }, status: :bad_request
   end
+
+  def generate_pagination_metadata(pagy)
+    {
+      count: pagy.count,
+      items: pagy.items,
+      page: pagy.page,
+      last: pagy.last,
+      pages: pagy.pages,
+      from: pagy.from,
+      to: pagy.to,
+      next: pagy.next,
+      prev: pagy.prev
+    }
+  end
+
 end
