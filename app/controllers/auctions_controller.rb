@@ -1,7 +1,7 @@
 class AuctionsController < ApplicationController
   def index
     auctions = Auction.ransack(params[:q])
-    auctions.sorts = 'name asc'
+    auctions.sorts = 'start_at asc'
     pagy, records = pagy(auctions.result, items: params[:items] || 5, page: params[:page])
     render json: { auctions: AuctionSerializer.new(records), metadata: generate_pagination_metadata(pagy) }, status:200
   end
