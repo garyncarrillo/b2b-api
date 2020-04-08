@@ -44,5 +44,9 @@ module BaseApi
           max_age: 600
       end
     end
+
+    config.eager_load_paths << Rails.root.join('lib')
+    config.time_zone = 'America/Bogota'
+    config.active_record.default_timezone = :local
   end
 end
