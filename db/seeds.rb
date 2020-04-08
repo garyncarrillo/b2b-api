@@ -6,6 +6,6 @@
 #   movies = Movie.create([{ name: 'Star Wars' }, { name: 'Lord of the Rings' }])
 #   Character.create(name: 'Luke', movie: movies.first)
 
-User.find_or_create_by(email: 'admin@subasta.com',) do |user|
+User.find_or_create_by(email: 'admin@subasta.com', first_name: 'John', last_name: 'Doe', phone: '(333) 333-3333') do |user|
   user.password = 'Pass1111$'
 end
