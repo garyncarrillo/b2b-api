@@ -15,7 +15,7 @@ Rails.application.routes.draw do
                passwords: 'passwords',
              }
 
-  resource :users, only: %i(show)
+  resource :user, only: %i(show update), controller: :user
   resources :categories, except: %i(new edit)
   resources :articles, except: %i(new edit)
   resources :auctions, except: %i(new edit)

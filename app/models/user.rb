@@ -7,4 +7,7 @@ class User < ApplicationRecord
          jwt_revocation_strategy: JWTBlacklist
 
   validates :email, uniqueness: true
+  validates :first_name, presence: true
+  validates :last_name, presence: true
+  validates :phone, presence: true
 end
