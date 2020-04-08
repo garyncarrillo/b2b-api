@@ -41,6 +41,12 @@ class AuctionsController < ApplicationController
     end
   end
 
+  def search
+    auctions = Auction.ransack({products_article_name_cont: params[:search]}).result.limit(10)
+    auctions = AuctionDecorator.decorate_collection(auctions, context: { user: current_user })
+    render json: {auctions: AuctionSerializer.new(auctions)}, status: 200
+  end
+
   private
   def auction_params
     params.require(:auction).permit(:name, :start_at)
