@@ -17,17 +17,15 @@ Rails.application.routes.draw do
 
   resource :user, only: %i(show update), controller: :user
   resources :categories, except: %i(new edit)
-  resources :articles, except: %i(new edit)
-  resources :products, except: %i(new edit)
   resources :favourites, only: %i(index)
 
-  resources :articles, path: :article, only: [] do
+  resources :articles, except: %i(new edit) do
     member do
       resource :favourite, only: %i(create destroy), controller: 'article_favourites'
     end
   end
 
-  resources :products, path: :product, only: [] do
+  resources :products, except: %i(new edit) do
     member do
       resource :favourite, only: %i(create destroy), controller: 'product_favourites'
     end

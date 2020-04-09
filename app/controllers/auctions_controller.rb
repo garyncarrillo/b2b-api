@@ -3,11 +3,13 @@ class AuctionsController < ApplicationController
     auctions = Auction.ransack(params[:q])
     auctions.sorts = 'start_at asc'
     pagy, records = pagy(auctions.result, items: params[:items] || 5, page: params[:page])
+    records = AuctionDecorator.decorate_collection(records, context: {user: current_user})
     render json: { auctions: AuctionSerializer.new(records), metadata: generate_pagination_metadata(pagy) }, status:200
   end
 
   def show
     auction = Auction.find(params[:id])
+    auction = AuctionDecorator.decorate(auction, context: {user: current_user})
     render json: AuctionSerializer.new(auction), status:200
   end
 
@@ -15,6 +17,7 @@ class AuctionsController < ApplicationController
     auction = Auction.new(auction_params)
 
     if auction.save
+      auction = AuctionDecorator.decorate(auction, context: {user: current_user})
       render json: AuctionSerializer.new(auction), status: 201
     else
       render json: {errors: auction.errors.messages}, status: 406
@@ -25,6 +28,7 @@ class AuctionsController < ApplicationController
     auction =  Auction.find(params[:id])
 
     if auction.update(auction_params)
+      auction = AuctionDecorator.decorate(auction, context: {user: current_user})
       render json: AuctionSerializer.new(auction), status: 200
     else
       render json: {errors: auction.errors.messages}, status: 406
