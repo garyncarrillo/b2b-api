@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_04_21_181235) do
+ActiveRecord::Schema.define(version: 2020_04_24_013357) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -88,6 +88,11 @@ ActiveRecord::Schema.define(version: 2020_04_21_181235) do
     t.bigint "auction_id"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+    t.boolean "tax_included", default: false
+    t.integer "currency", default: 0
+    t.integer "quantity"
+    t.integer "unit_of_measure", default: 0
+    t.string "place_of_delivery"
     t.index ["article_id"], name: "index_products_on_article_id"
     t.index ["auction_id"], name: "index_products_on_auction_id"
   end
