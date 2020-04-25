@@ -1,6 +1,6 @@
 Rails.application.routes.draw do
   namespace :customer, path: nil do
-    devise_scope :user do
+    devise_scope :customer_user do
       post "/sign_up" => "registrations#create"
     end
 
@@ -11,9 +11,9 @@ Rails.application.routes.draw do
                  sign_out: 'sign_out'
                },
                controllers: {
-                 sessions: 'sessions',
-                 registrations: 'registrations',
-                 passwords: 'passwords',
+                 sessions: 'customer/sessions',
+                 registrations: 'customer/registrations',
+                 passwords: 'customer/passwords',
                }
 
     resource :user, only: %i(show update), controller: :user
@@ -52,7 +52,6 @@ Rails.application.routes.draw do
                },
                controllers: {
                  sessions: 'admin/sessions',
-                 registrations: 'admin/registrations',
                  passwords: 'admin/passwords',
                }
 

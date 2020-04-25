@@ -9,3 +9,7 @@
 AdminUser.find_or_create_by(email: 'admin@subasta.com', first_name: 'John', last_name: 'Doe', phone: '(333) 333-3333') do |user|
   user.password = 'Pass1111$'
 end
+
+CustomerUser.find_or_create_by(email: 'customer@subasta.com', first_name: 'John', last_name: 'Wick', phone: '(333) 333-3333') do |user|
+  user.password = 'Pass1111$'
+end
