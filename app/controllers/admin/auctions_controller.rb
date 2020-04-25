@@ -1,15 +1,14 @@
 module Admin
   class AuctionsController < ApplicationController
+    before_action do
+      ActiveStorage::Current.host = ENV['ACTIVE_STORAGE_HOST']
+    end
+    
     def index
       auctions = Auction.ransack(params[:q])
       auctions.sorts = 'start_at asc'
       pagy, records = pagy(auctions.result, items: params[:items] || 5, page: params[:page])
-      render json: { auctions: AuctionSerializer.new(records), metadata: generate_pagination_metadata(pagy) }, status:200
-    end
-
-    def show
-      auction = Auction.find(params[:id])
-      render json: AuctionSerializer.new(auction), status:200
+      render json: { auctions: AuctionSerializer.new(records, {include: [:products]}), metadata: generate_pagination_metadata(pagy) }, status:200
     end
 
     def create
