@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_04_24_015642) do
+ActiveRecord::Schema.define(version: 2020_04_25_040739) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -62,6 +62,7 @@ ActiveRecord::Schema.define(version: 2020_04_24_015642) do
     t.string "description"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+    t.index ["name"], name: "index_categories_on_name", unique: true
   end
 
   create_table "favourites", force: :cascade do |t|
@@ -84,7 +85,7 @@ ActiveRecord::Schema.define(version: 2020_04_24_015642) do
     t.string "description"
     t.decimal "initial_amount"
     t.decimal "bid_amount"
-    t.bigint "article_id", null: false
+    t.bigint "article_id"
     t.bigint "auction_id"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
@@ -119,6 +120,7 @@ ActiveRecord::Schema.define(version: 2020_04_24_015642) do
     t.string "last_name"
     t.string "company"
     t.string "phone"
+    t.string "type"
     t.index ["email"], name: "index_users_on_email", unique: true
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
   end
@@ -126,7 +128,6 @@ ActiveRecord::Schema.define(version: 2020_04_24_015642) do
   add_foreign_key "active_storage_attachments", "active_storage_blobs", column: "blob_id"
   add_foreign_key "articles", "categories"
   add_foreign_key "favourites", "users"
-  add_foreign_key "products", "articles"
   add_foreign_key "products", "auctions"
   add_foreign_key "products", "sellers"
 end

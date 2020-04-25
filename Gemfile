@@ -6,6 +6,7 @@ ruby '2.6.4'
 gem 'rails', '6.0.1'
 
 gem 'aasm', '5.0.6'
+gem 'active_storage_validations', '0.8.8'
 gem 'devise', '4.7.1'
 gem 'devise-jwt', '0.6.0'
 gem 'fast_jsonapi', '1.5'

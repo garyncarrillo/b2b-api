@@ -7,7 +7,7 @@ class ProductSerializer < BaseSerializer
     end
   end
 
-  attribute :is_favourite do |object|
+  attribute :is_favourite, if: Proc.new { |record| record.respond_to?(:is_favourite?) } do |object|
     object.is_favourite?
   end
 

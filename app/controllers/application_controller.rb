@@ -3,8 +3,6 @@ class ApplicationController < ActionController::API
 
   include Pagy::Backend
 
-  before_action :authenticate_user!
-
   rescue_from ActiveRecord::RecordNotFound, with: :not_found
 
   def render_resource(resource)

@@ -1,4 +1,6 @@
 class Auction < ApplicationRecord
+  include AASM
+
   validates :name, presence: true
   validates :start_at, presence: true
   validates :description, presence: true
