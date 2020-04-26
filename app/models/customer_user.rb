@@ -1,0 +1,2 @@
+class CustomerUser < User
+end
