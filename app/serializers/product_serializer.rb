@@ -1,5 +1,6 @@
 class ProductSerializer < BaseSerializer
-  attributes :name, :description, :initial_amount, :bid_amount
+  attributes :name, :description, :initial_amount, :bid_amount, :tax_included,
+             :currency, :quantity, :unit_of_measure, :place_of_delivery
 
   attribute :images do |object|
     object.images.each_with_object([]) do |image, results|
@@ -13,4 +14,5 @@ class ProductSerializer < BaseSerializer
 
   belongs_to :auction
   belongs_to :article
+  belongs_to :seller
 end
