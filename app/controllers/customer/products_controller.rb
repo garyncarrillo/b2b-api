@@ -15,7 +15,7 @@ module Customer
     def show
       product = Product.find(params[:id])
       product = ProductDecorator.decorate(product, context: {user: current_customer_user})
-      render json: ProductSerializer.new(product), status: 200
+      render json: ProductSerializer.new(product, { include: [:article, :'article.category', :seller] }), status: 200
     end
   end
 end
