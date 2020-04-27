@@ -4,7 +4,7 @@ module Customer
 
     def create
       auction = Auction.find(params[:id])
-      favourite = auction.favourites.new({user: current_user})
+      favourite = auction.favourites.new({user: current_customer_user})
 
       if favourite.save
         render json: FavouriteSerializer.new(favourite), status: 201
@@ -15,7 +15,7 @@ module Customer
 
     def destroy
       auction = Auction.find(params[:id])
-      favourite =  auction.favourites.find_by_user_id(current_user)
+      favourite =  auction.favourites.find_by_user_id(current_customer_user)
 
       begin
         favourite.destroy
