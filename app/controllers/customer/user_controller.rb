@@ -1,16 +1,16 @@
 module Customer
   class UserController < ApplicationController
     def show
-      render json: UserSerializer.new(current_user), status: 200
+      render json: UserSerializer.new(current_customer_user), status: 200
     end
 
     def update
-      current_user.assign_attributes(user_params)
+      current_customer_user.assign_attributes(user_params)
 
       if current_user.save
-        render json: UserSerializer.new(current_user), status: 200
+        render json: UserSerializer.new(current_customer_user), status: 200
       else
-        render json: {errors: current_user.errors.messages}, status: 406
+        render json: {errors: current_customer_user.errors.messages}, status: 406
       end
     end
 

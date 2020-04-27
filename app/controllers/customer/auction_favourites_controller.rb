@@ -1,5 +1,7 @@
 module Customer
   class AuctionFavouritesController < ApplicationController
+    before_action :authenticate_customer_user!
+
     def create
       auction = Auction.find(params[:id])
       favourite = auction.favourites.new({user: current_user})
