@@ -19,7 +19,7 @@ module Customer
     end
 
     def search
-      auctions = Auction.ransack({products_article_name_cont: params[:search]}).result.limit(10)
+      auctions = Auction.ransack(params[:search]).result(distinct: true).limit(10)
       auctions = AuctionDecorator.decorate_collection(auctions, context: { user: current_customer_user })
       render json: {auctions: AuctionSerializer.new(auctions, {include: [:products]})}, status: 200
     end
