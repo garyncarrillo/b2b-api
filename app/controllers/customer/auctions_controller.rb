@@ -7,7 +7,7 @@ module Customer
     def index
       auctions = Auction.ransack(params[:q])
       auctions.sorts = 'start_at asc'
-      pagy, records = pagy(auctions.result, items: params[:items] || 5, page: params[:page])
+      pagy, records = pagy(auctions.result(distinct: true), items: params[:items] || 5, page: params[:page])
       records = AuctionDecorator.decorate_collection(records, context: {user: current_customer_user})
       render json: { auctions: AuctionSerializer.new(records, {include: [:products]}), metadata: generate_pagination_metadata(pagy) }, status:200
     end
