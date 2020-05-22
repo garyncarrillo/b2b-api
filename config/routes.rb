@@ -41,6 +41,8 @@ Rails.application.routes.draw do
         get :search
       end
     end
+
+    resources :sellers, only: %i(show)
   end
 
   namespace :admin do
