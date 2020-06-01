@@ -10,4 +10,8 @@ class AuctionDecorator < ApplicationDecorator
   def paid?
     object.customer_auctions.find_by(user_id: self.context[:user]&.id)&.paid
   end
+
+  def has_voucher?
+    object.customer_auctions.find_by(user_id: self.context[:user]&.id)&.voucher&.attached?
+  end
 end

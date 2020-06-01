@@ -14,5 +14,9 @@ class AuctionSerializer < BaseSerializer
     object.paid?
   end
 
+  attribute :has_voucher, if: Proc.new { |record| record.respond_to?(:has_voucher?) } do |object|
+    object.has_voucher?
+  end
+
   has_many :products
 end
