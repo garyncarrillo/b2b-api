@@ -6,5 +6,13 @@ class AuctionSerializer < BaseSerializer
     object.is_favourite?
   end
 
+  attribute :joined, if: Proc.new { |record| record.respond_to?(:joined?) } do |object|
+    object.joined?
+  end
+
+  attribute :paid, if: Proc.new { |record| record.respond_to?(:paid?) } do |object|
+    object.paid?
+  end
+
   has_many :products
 end

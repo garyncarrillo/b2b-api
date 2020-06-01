@@ -9,6 +9,8 @@ class Auction < ApplicationRecord
   validates :terms_and_conditions, presence: true
   validates :terms_and_conditions, presence: true
 
+  has_many :customer_auctions
+  has_many :customers, through: :customer_auctions, foreign_key: :user_id
   has_many :favourites, as: :favouritable
   has_many :products
 
