@@ -16,7 +16,7 @@ Rails.application.routes.draw do
              }
 
  devise_for :admin_users,
-            path: '',
+            path: 'admin',
             path_name: {
               sign_in: 'sign_in',
               sign_out: 'sign_out'
@@ -60,6 +60,7 @@ Rails.application.routes.draw do
   end
 
   namespace :admin do
+    resource :user, only: %i(show update), controller: :user
     resources :auctions, except: %i(new edit)
     resources :categories, except: %i(new edit show)
     resources :articles, except: %i(new edit show)
