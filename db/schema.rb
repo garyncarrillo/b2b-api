@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_06_01_021153) do
+ActiveRecord::Schema.define(version: 2020_06_24_130205) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -91,6 +91,19 @@ ActiveRecord::Schema.define(version: 2020_06_01_021153) do
     t.index ["jti"], name: "index_jwt_blacklist_on_jti"
   end
 
+  create_table "on_site_users", force: :cascade do |t|
+    t.string "number"
+    t.string "first_name"
+    t.string "last_name"
+    t.string "company"
+    t.string "phone"
+    t.string "email"
+    t.bigint "auction_id", null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["auction_id"], name: "index_on_site_users_on_auction_id"
+  end
+
   create_table "products", force: :cascade do |t|
     t.string "name"
     t.string "description"
@@ -141,6 +154,7 @@ ActiveRecord::Schema.define(version: 2020_06_01_021153) do
   add_foreign_key "customer_auctions", "auctions"
   add_foreign_key "customer_auctions", "users"
   add_foreign_key "favourites", "users"
+  add_foreign_key "on_site_users", "auctions"
   add_foreign_key "products", "auctions"
   add_foreign_key "products", "sellers"
 end
