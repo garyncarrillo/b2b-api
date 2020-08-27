@@ -6,7 +6,11 @@
 #   movies = Movie.create([{ name: 'Star Wars' }, { name: 'Lord of the Rings' }])
 #   Character.create(name: 'Luke', movie: movies.first)
 
-AdminUser.find_or_create_by(email: 'admin@subasta.com', first_name: 'John', last_name: 'Doe', phone: '(333) 333-3333') do |user|
+AdminUser.find_or_create_by(email: 'admin@subasta.com', first_name: 'John', last_name: 'Doe', phone: '(333) 333-3333', role: 'admin') do |user|
+  user.password = 'Pass1111$'
+end
+
+AdminUser.find_or_create_by(email: 'auctioner@subasta.com', first_name: 'John', last_name: 'Wick', phone: '(333) 333-3333', role: 'auctioner') do |user|
   user.password = 'Pass1111$'
 end
 
