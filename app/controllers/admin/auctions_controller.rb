@@ -41,6 +41,7 @@ module Admin
 
       begin
         auction.destroy
+        render json: {}, status: 204
       rescue => e
         render json: {errors: {base: I18n.t(:cant_be_deleted)}}, status: 406
       end

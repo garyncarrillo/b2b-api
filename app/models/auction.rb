@@ -9,10 +9,11 @@ class Auction < ApplicationRecord
   validates :terms_and_conditions, presence: true
   validates :terms_and_conditions, presence: true
 
-  has_many :customer_auctions
+  has_many :customer_auctions, dependent: :destroy
   has_many :customers, through: :customer_auctions, foreign_key: :user_id
-  has_many :favourites, as: :favouritable
-  has_many :products
+  has_many :favourites, as: :favouritable, dependent: :destroy
+  has_many :products, dependent: :destroy
+  has_many :on_site_users, dependent: :destroy
 
   enum auction_type: [ :'on-site', :'online', :hybrid ]
 
