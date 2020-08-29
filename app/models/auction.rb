@@ -8,6 +8,7 @@ class Auction < ApplicationRecord
   validates :auction_type, presence: true
   validates :terms_and_conditions, presence: true
   validates :terms_and_conditions, presence: true
+  validates :time_bit, presence: true
 
   has_many :customer_auctions, dependent: :destroy
   has_many :customers, through: :customer_auctions, foreign_key: :user_id
