@@ -58,8 +58,13 @@ module Admin
         :auction_type,
         :terms_and_conditions,
         :start_at,
-        :time_bit
-      )
+        :time_bit,
+        :terms_and_conditions_file,
+        :products_report_file
+      ).tap do |auction_params|
+        auction_params.delete(:terms_and_conditions_file) if !auction_params[:terms_and_conditions_file]
+        auction_params.delete(:products_report_file) if !auction_params[:products_report_file]
+      end
     end
   end
 end
