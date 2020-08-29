@@ -57,7 +57,8 @@ module Admin
         :place,
         :auction_type,
         :terms_and_conditions,
-        :start_at
+        :start_at,
+        :time_bit
       )
     end
   end
