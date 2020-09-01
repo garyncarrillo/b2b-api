@@ -47,6 +47,12 @@ module Admin
       end
     end
 
+    def publish
+      auction = Auction.find(params[:id])
+      auction.publish!
+      render json: AuctionSerializer.new(auction), status: 200
+    end
+
     private
 
     def auction_params

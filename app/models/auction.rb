@@ -29,5 +29,9 @@ class Auction < ApplicationRecord
     state :scheduled
     state :started
     state :finished
+
+    event :publish do
+      transitions from: :new, to: :scheduled
+    end
   end
 end

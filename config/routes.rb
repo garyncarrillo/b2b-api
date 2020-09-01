@@ -61,7 +61,11 @@ Rails.application.routes.draw do
 
   namespace :admin do
     resource :user, only: %i(show update), controller: :user
-    resources :auctions, except: %i(new edit)
+    resources :auctions, except: %i(new edit) do
+      member do
+        put :publish
+      end
+    end
     resources :categories, except: %i(new edit show)
     resources :articles, except: %i(new edit show)
     resources :products, except: %i(new edit show)
