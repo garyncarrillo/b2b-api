@@ -4,7 +4,7 @@ module Admin
       categories = Category.ransack(params[:q])
       categories.sorts  = 'name asc'
       pagy, records = pagy(categories.result, items: params[:items] || 5, page: params[:page])
-      render json: { categories: CategorySerializer.new(records), metadata: generate_pagination_metadata(pagy) }, status: 200
+      render json: { categories: CategorySerializer.new(records, { include: [:articles] }), metadata: generate_pagination_metadata(pagy) }, status: 200
     end
 
     def create

@@ -68,7 +68,7 @@ Rails.application.routes.draw do
     end
     resources :categories, except: %i(new edit show)
     resources :articles, except: %i(new edit show)
-    resources :products, except: %i(new edit show)
+    resources :products, except: %i(new edit)
     resources :sellers, except: %i(new edit show)
     resources :on_site_users, except: %i(new edit show)
   end

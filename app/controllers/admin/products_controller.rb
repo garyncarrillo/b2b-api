@@ -8,7 +8,12 @@ module Admin
       products = Product.ransack(params[:q])
       products.sorts  = 'name asc'
       pagy, records = pagy(products.result, items: params[:items] || 5, page: params[:page])
-      render json: { products: ProductSerializer.new(records), metadata: generate_pagination_metadata(pagy) }, status: 200
+      render json: { products: ProductSerializer.new(records, {include: [:article, :'article.category', :seller]} ), metadata: generate_pagination_metadata(pagy) }, status: 200
+    end
+
+    def show
+      product = Product.find(params[:id])
+      render json: ProductSerializer.new(product, {include: [:article, :'article.category', :seller]}), status: 200
     end
 
     def create
