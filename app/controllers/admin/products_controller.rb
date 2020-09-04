@@ -17,7 +17,7 @@ module Admin
     end
 
     def create
-      product = Product.new(product_params)
+      product = Product.new(product_params.merge(product_attachments_params.select{|_, v| !v.blank?}))
 
       if product.save
         render json: ProductSerializer.new(product), status: 201
@@ -29,7 +29,21 @@ module Admin
     def update
       product =  Product.find(params[:id])
 
-      if product.update(product_params)
+      product.assign_attributes(product_params)
+
+      if product_attachments_params[:attached_1_file].present?
+        product.assign_attributes(attached_1_file: product_attachments_params[:attached_1_file])
+      elsif product_attachments_params.has_key?(:attached_1_file)
+        product.attached_1_file.purge
+      end
+
+      if product_attachments_params[:attached_2_file].present?
+        product.assign_attributes(attached_2_file: product_attachments_params[:attached_2_file])
+      elsif product_attachments_params.has_key?(:attached_2_file)
+        product.attached_2_file.purge
+      end
+
+      if product.save
         render json: ProductSerializer.new(product), status: 200
       else
         render json: {errors: product.errors.messages}, status: 406
@@ -61,6 +75,13 @@ module Admin
         :auction_id,
         :article_id,
         :seller_id,
+      )
+    end
+
+    def product_attachments_params
+      params.require(:product).permit(
+        :attached_1_file,
+        :attached_2_file,
         images: [ ]
       )
     end

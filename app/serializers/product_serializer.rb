@@ -12,6 +12,30 @@ class ProductSerializer < BaseSerializer
     object.is_favourite?
   end
 
+  attribute :attached_1_file do |object|
+     object.attached_1_file.service_url if object.attached_1_file.attached?
+  end
+
+  attribute :attached_1_file_name do |object|
+    object.attached_1_file.blob.filename if object.attached_1_file.attached?
+  end
+
+  attribute :attached_1_file_size do |object|
+    object.attached_1_file.blob.byte_size if object.attached_1_file.attached?
+  end
+
+  attribute :attached_2_file do |object|
+     object.attached_2_file.service_url if object.attached_2_file.attached?
+  end
+
+  attribute :attached_2_file_name do |object|
+    object.attached_2_file.blob.filename if object.attached_2_file.attached?
+  end
+
+  attribute :attached_2_file_size do |object|
+    object.attached_2_file.blob.byte_size if object.attached_2_file.attached?
+  end
+
   belongs_to :auction
   belongs_to :article
   belongs_to :seller
