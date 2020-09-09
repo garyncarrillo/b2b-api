@@ -43,6 +43,14 @@ module Admin
         product.attached_2_file.purge
       end
 
+      if product_attachments_params[:images].present?
+        product.assign_attributes(images: product_attachments_params[:images])
+      end
+
+      if (product_attachments_params[:removed_images].present?)
+        product.images.where(blob_id: product_attachments_params[:removed_images]).purge
+      end
+
       if product.save
         render json: ProductSerializer.new(product), status: 200
       else
@@ -82,7 +90,8 @@ module Admin
       params.require(:product).permit(
         :attached_1_file,
         :attached_2_file,
-        images: [ ]
+        images: [ ],
+        removed_images: [ ]
       )
     end
   end

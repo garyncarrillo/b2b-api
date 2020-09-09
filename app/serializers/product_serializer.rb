@@ -3,8 +3,11 @@ class ProductSerializer < BaseSerializer
              :currency, :quantity, :unit_of_measure, :place_of_delivery
 
   attribute :images do |object|
-    object.images.each_with_object([]) do |image, results|
-      results << image.service_url
+    object.images.order(created_at: :desc).each_with_object([]) do |image, results|
+      results << {
+        blob_id: image.blob_id,
+        url: image.service_url
+      }
     end
   end
 
