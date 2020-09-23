@@ -53,6 +53,15 @@ module Admin
       render json: AuctionSerializer.new(auction), status: 200
     end
 
+    def assign_products
+      auction = Auction.find(params[:id])
+      Product.where(auction_id: auction.id).update_all(auction_id: nil)
+      if auction_params[:products_id].any?
+        Product.where(id: auction_params[:products_id]).update_all(auction_id: auction.id)
+      end
+      render json: {}, status: 200
+    end
+
     private
 
     def auction_params
@@ -71,6 +80,10 @@ module Admin
         auction_params.delete(:terms_and_conditions_file) if !auction_params[:terms_and_conditions_file]
         auction_params.delete(:products_report_file) if !auction_params[:products_report_file]
       end
+    end
+
+    def auction_params
+      params.require(:auction).permit(products_id: [])
     end
   end
 end

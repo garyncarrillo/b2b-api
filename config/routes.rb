@@ -64,6 +64,7 @@ Rails.application.routes.draw do
     resources :auctions, except: %i(new edit) do
       member do
         put :publish
+        put :assign_products
       end
     end
     resources :categories, except: %i(new edit show)
