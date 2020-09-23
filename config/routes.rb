@@ -71,5 +71,6 @@ Rails.application.routes.draw do
     resources :products, except: %i(new edit)
     resources :sellers, except: %i(new edit show)
     resources :on_site_users, except: %i(new edit show)
+    resource :global_data, only: %i(show)
   end
 end
