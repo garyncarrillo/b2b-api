@@ -24,7 +24,17 @@ module Admin
     def update
       seller = Seller.find(params[:id])
 
-      if seller.update(seller_params)
+      seller.assign_attributes(seller_params)
+
+      if seller_params[:profile_picture].present?
+        seller.assign_attributes(profile_picture: seller_params[:profile_picture])
+      else
+        if !seller_params.has_key?(:profile_picture)
+          seller.profile_picture.purge
+        end
+      end
+
+      if seller.save
         render json: SellerSerializer.new(seller), status: 200
       else
         render json: {errors: seller.errors.messages}, status: 406
