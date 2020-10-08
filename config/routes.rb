@@ -24,6 +24,7 @@ Rails.application.routes.draw do
             controllers: {
               sessions: 'admin/sessions',
               passwords: 'admin/passwords',
+              invitations: 'admin/invitations',
             }
 
   namespace :customer, path: nil do
@@ -73,5 +74,6 @@ Rails.application.routes.draw do
     resources :sellers, except: %i(new edit show)
     resources :on_site_users, except: %i(new edit show)
     resource :global_data, only: %i(show)
+    resources :users, except: %i(new show)
   end
 end
