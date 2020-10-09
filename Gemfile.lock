@@ -102,6 +102,9 @@ GEM
     devise-jwt (0.6.0)
       devise (~> 4.0)
       warden-jwt_auth (~> 0.4)
+    devise_invitable (2.0.1)
+      actionmailer (>= 5.0)
+      devise (>= 4.6)
     dotenv (2.7.5)
     dotenv-rails (2.7.5)
       dotenv (= 2.7.5)
@@ -244,6 +247,7 @@ DEPENDENCIES
   byebug
   devise (= 4.7.1)
   devise-jwt (= 0.6.0)
+  devise_invitable (= 2.0.1)
   dotenv-rails
   draper (= 4.0.1)
   fast_jsonapi (= 1.5)
