@@ -351,6 +351,7 @@ Devise.setup do |config|
       ['POST', %r{^/sign_in$}],
       ['POST', %r{^/sign_up$}],
       ['PUT', %r{^/password$}],
+      ['PUT', %r{^/admin/password$}],
       ['PUT', %r{^/admin/invitation$}],
     ]
     jwt.revocation_requests = [
