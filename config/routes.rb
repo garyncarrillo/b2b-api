@@ -66,6 +66,7 @@ Rails.application.routes.draw do
       member do
         put :publish
         put :assign_products
+        get :customers
       end
     end
     resources :categories, except: %i(new edit show)
@@ -75,5 +76,11 @@ Rails.application.routes.draw do
     resources :on_site_users, except: %i(new edit show)
     resource :global_data, only: %i(show)
     resources :users, except: %i(new show)
+
+    resources :customers, only: [] do
+      member do
+        post :approve_pay
+      end
+    end
   end
 end
