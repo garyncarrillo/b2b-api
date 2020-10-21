@@ -56,10 +56,29 @@ module Admin
     def assign_products
       auction = Auction.find(params[:id])
       Product.where(auction_id: auction.id).update_all(auction_id: nil)
-      if auction_params[:products_id].any?
-        Product.where(id: auction_params[:products_id]).update_all(auction_id: auction.id)
+      if auction_assign_product_params[:products_id].any?
+        Product.where(id: auction_assign_product_params[:products_id]).update_all(auction_id: auction.id)
       end
       render json: {}, status: 200
+    end
+
+    def customers
+      customers = Auction.find(params[:id]).customer_auctions.ransack(params[:q])
+      pagy, records = pagy(customers.result, items: params[:items] || 5, page: params[:page])
+      render json: { customer_auctions: CustomerAuctionSerializer.new(records,
+      {
+        include: [:auction, :customer]
+      }), metadata: generate_pagination_metadata(pagy) }, status:200
+    end
+
+    def approve_pay
+      customer_auction = CustomerAuction.find(params[:id])
+
+      if customer_auction.update(paid: true)
+        render json: {}, status: 200
+      else
+        render json: { erros: customer_auction.errors.messages }, status: 406
+      end
     end
 
     private
@@ -82,7 +101,7 @@ module Admin
       end
     end
 
-    def auction_params
+    def auction_assign_product_params
       params.require(:auction).permit(products_id: [])
     end
   end

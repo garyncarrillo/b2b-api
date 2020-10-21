@@ -7,7 +7,6 @@ class Auction < ApplicationRecord
   validates :contact_phone, presence: true
   validates :auction_type, presence: true
   validates :terms_and_conditions, presence: true
-  validates :terms_and_conditions, presence: true
   validates :time_bit, presence: true
   validates :place, presence: true
   validates :terms_and_conditions_file, attached: true, content_type: ['application/pdf']
