@@ -3,7 +3,6 @@ module Customer
     respond_to :json
 
     def create
-      p '*' * 100
     # unless request.format == :json
     #     sign_out
     #     render status: 406,
