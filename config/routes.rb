@@ -77,9 +77,11 @@ Rails.application.routes.draw do
     resource :global_data, only: %i(show)
     resources :users, except: %i(new show)
 
-    resources :customers, only: [] do
+    resources :customers, only: %i(index) do
       member do
         post :approve_pay
+        post :activate
+        delete :deactivate
       end
     end
   end
