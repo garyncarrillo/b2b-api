@@ -84,5 +84,13 @@ Rails.application.routes.draw do
         delete :deactivate
       end
     end
+
+    namespace :stats, path: nil do
+      resources :customers, only: [] do
+        collection do
+          get :'anality', action: :anality
+        end
+      end
+    end
   end
 end

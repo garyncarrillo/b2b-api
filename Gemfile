@@ -5,6 +5,8 @@ ruby '2.6.4'
 
 gem 'rails', '6.0.1'
 
+gem 'caxlsx', ' 3.0.2'
+gem 'caxlsx_rails', '0.6.2'
 gem 'aasm', '5.0.6'
 gem 'aws-sdk-s3','1.53.0'
 gem 'aws-sdk-rails', '3.0.5'
