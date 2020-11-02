@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_10_22_032239) do
+ActiveRecord::Schema.define(version: 2020_11_02_161153) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -57,6 +57,7 @@ ActiveRecord::Schema.define(version: 2020_10_22_032239) do
     t.datetime "start_at"
     t.boolean "started", default: false
     t.integer "time_bit"
+    t.string "uuid"
   end
 
   create_table "categories", force: :cascade do |t|
@@ -156,6 +157,7 @@ ActiveRecord::Schema.define(version: 2020_10_22_032239) do
     t.bigint "invited_by_id"
     t.integer "invitations_count", default: 0
     t.boolean "active", default: true
+    t.string "uuid"
     t.index ["email"], name: "index_users_on_email", unique: true
     t.index ["invitation_token"], name: "index_users_on_invitation_token", unique: true
     t.index ["invitations_count"], name: "index_users_on_invitations_count"

@@ -67,6 +67,7 @@ Rails.application.routes.draw do
         put :publish
         put :assign_products
         get :customers
+        put :start
       end
     end
     resources :categories, except: %i(new edit show)

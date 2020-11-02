@@ -32,5 +32,13 @@ class Auction < ApplicationRecord
     event :publish do
       transitions from: :new, to: :scheduled
     end
+
+    event :start, after: :started_nofitification do
+      transitions from: :scheduled, to: :started
+    end
+  end
+
+  def started_nofitification
+    AuctionStartingNotificationWorker.perform_async(self.id)
   end
 end
