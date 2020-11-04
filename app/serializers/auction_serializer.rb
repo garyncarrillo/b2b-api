@@ -1,6 +1,6 @@
 class AuctionSerializer < BaseSerializer
   attributes :name, :start_at, :description, :contact_phone,
-             :place, :auction_type, :terms_and_conditions, :started, :state, :time_bit
+             :place, :auction_type, :terms_and_conditions, :started, :state, :time_bit, :uuid
 
   attribute :is_favourite, if: Proc.new { |record| record.respond_to?(:is_favourite?) } do |object|
     object.is_favourite?

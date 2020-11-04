@@ -6,7 +6,7 @@ class AuctionStartingNotificationWorker
     auction.update(uuid: SecureRandom.uuid)
 
     message = {
-      room: "743a6538-74ba-41a2-ad9c-e89f3c9ead80",
+      rooms: auction.customers.pluck(:uuid),
       data: {
         auction_id: auction_id,
         auction: auction.name

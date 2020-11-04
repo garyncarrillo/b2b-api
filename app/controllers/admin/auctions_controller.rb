@@ -6,7 +6,7 @@ module Admin
 
     def index
       auctions = Auction.ransack(params[:q])
-      auctions.sorts = 'start_at asc'
+      auctions.sorts = 'start_at desc'
       pagy, records = pagy(auctions.result, items: params[:items] || 5, page: params[:page])
       render json: { auctions: AuctionSerializer.new(records, {include: [:products]}), metadata: generate_pagination_metadata(pagy) }, status:200
     end
