@@ -16,6 +16,7 @@ class User < ApplicationRecord
   validates :phone, presence: true
 
   has_many :favourites
+  has_many :bids
 
   def create_uuid
     self.uuid = SecureRandom.uuid

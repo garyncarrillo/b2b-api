@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_11_02_161153) do
+ActiveRecord::Schema.define(version: 2020_11_05_013142) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -58,6 +58,18 @@ ActiveRecord::Schema.define(version: 2020_11_02_161153) do
     t.boolean "started", default: false
     t.integer "time_bit"
     t.string "uuid"
+  end
+
+  create_table "bids", force: :cascade do |t|
+    t.bigint "auction_id", null: false
+    t.bigint "user_id", null: false
+    t.string "uuid", null: false
+    t.decimal "current_value", null: false
+    t.decimal "value", null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["auction_id"], name: "index_bids_on_auction_id"
+    t.index ["user_id"], name: "index_bids_on_user_id"
   end
 
   create_table "categories", force: :cascade do |t|
@@ -168,6 +180,8 @@ ActiveRecord::Schema.define(version: 2020_11_02_161153) do
 
   add_foreign_key "active_storage_attachments", "active_storage_blobs", column: "blob_id"
   add_foreign_key "articles", "categories"
+  add_foreign_key "bids", "auctions"
+  add_foreign_key "bids", "users"
   add_foreign_key "customer_auctions", "auctions"
   add_foreign_key "customer_auctions", "users"
   add_foreign_key "favourites", "users"

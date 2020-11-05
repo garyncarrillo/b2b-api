@@ -77,6 +77,7 @@ Rails.application.routes.draw do
     resources :on_site_users, except: %i(new edit show)
     resource :global_data, only: %i(show)
     resources :users, except: %i(new show)
+    resources :bids, only: %i(create index)
 
     resources :customers, only: %i(index) do
       member do
