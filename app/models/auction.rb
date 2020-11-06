@@ -17,7 +17,6 @@ class Auction < ApplicationRecord
   has_many :favourites, as: :favouritable, dependent: :destroy
   has_many :products, dependent: :destroy
   has_many :on_site_users, dependent: :destroy
-  has_many :bids
 
   has_one_attached :terms_and_conditions_file
   has_one_attached :products_report_file
@@ -36,6 +35,10 @@ class Auction < ApplicationRecord
 
     event :start, after: :started_nofitification do
       transitions from: :scheduled, to: :started
+    end
+
+    event :finish do
+      transitions from: :started, to: :finished
     end
   end
 

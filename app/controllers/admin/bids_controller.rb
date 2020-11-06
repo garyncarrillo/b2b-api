@@ -2,13 +2,13 @@ module Admin
   class BidsController < ApplicationController
     def create
       bid = Bid.where("value <= :value_bid",{ value_bid: bid_params[:value] })
-               .find_by(auction_id: bid_params[:auction_id])
-      return render json: { errors: 'There is already a bid for that value in the auction' }, status: 406 if bid
+               .find_by(product_id: bid_params[:product_id])
+      return render json: { errors: 'There is already a bid for that value for the this product' }, status: 406 if bid
 
       bid = current_admin_user.bids.new(bid_params)
 
       if bid.save
-        SendBidAuctionWorker.perform_async(bid.id, bid.auction_id)
+        SendBidAuctionWorker.perform_async(bid.id, bid.product.auction.id)
         render json: BidSerializer.new(bid), status: 201
       else
         render json: { errors: bid.errors.messages }, status: 406
@@ -27,7 +27,7 @@ module Admin
         :current_value,
         :value,
         :uuid,
-        :auction_id
+        :product_id
       )
     end
   end

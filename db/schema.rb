@@ -61,14 +61,14 @@ ActiveRecord::Schema.define(version: 2020_11_05_013142) do
   end
 
   create_table "bids", force: :cascade do |t|
-    t.bigint "auction_id", null: false
     t.bigint "user_id", null: false
+    t.bigint "product_id", null: false
     t.string "uuid", null: false
     t.decimal "current_value", null: false
     t.decimal "value", null: false
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
-    t.index ["auction_id"], name: "index_bids_on_auction_id"
+    t.index ["product_id"], name: "index_bids_on_product_id"
     t.index ["user_id"], name: "index_bids_on_user_id"
   end
 
@@ -180,7 +180,7 @@ ActiveRecord::Schema.define(version: 2020_11_05_013142) do
 
   add_foreign_key "active_storage_attachments", "active_storage_blobs", column: "blob_id"
   add_foreign_key "articles", "categories"
-  add_foreign_key "bids", "auctions"
+  add_foreign_key "bids", "products"
   add_foreign_key "bids", "users"
   add_foreign_key "customer_auctions", "auctions"
   add_foreign_key "customer_auctions", "users"
