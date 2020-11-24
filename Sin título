@@ -1,0 +1,6 @@
+
+product (
+  => initial
+  => bidding 'pujando'
+  => sold 'vendido'
+)

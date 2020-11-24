@@ -20,6 +20,11 @@ module Admin
       render json: { customers: CustomerSerializer.new(records), metadata: generate_pagination_metadata(pagy) }, status: 200
     end
 
+    def search
+      customer = CustomerUser.find_by(identification_number: params[:identification_number])
+      render json: { customer: OnSiteUserSerializer.new(customer) }, status: 200
+    end
+
     def activate
       customer = CustomerUser.find(params[:id])
       customer.active = true

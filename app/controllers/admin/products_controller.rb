@@ -6,7 +6,7 @@ module Admin
 
     def index
       products = Product.ransack(params[:q])
-      products.sorts  = 'name asc'
+      products.sorts  = 'id asc'
       pagy, records = pagy(products.result, items: params[:items] || 5, page: params[:page])
       render json: { products: ProductSerializer.new(records, {include: [:article, :'article.category', :seller]} ), metadata: generate_pagination_metadata(pagy) }, status: 200
     end
@@ -65,6 +65,46 @@ module Admin
         product.destroy
       rescue => e
         render json: {errors: {base: I18n.t(:cant_be_deleted)}}, status: 406
+      end
+    end
+
+    def bids
+      product =  Product.find(params[:id])
+      render json: { product: ProductSerializer.new(product,
+        {
+          include: [:bids, :'bids.user']
+        }
+      ) }, status: 200
+    end
+
+    def last_bid
+      product =  Product.find(params[:id])
+      render json: { bid: BidSerializer.new( product.bids.last) }, status: 200
+    end
+
+    def assign_winner
+      product = Product.find_by(id: params[:id], state: 'bidding', winner_id: nil)
+      return render json: { errors: 'The status of this product is not up for auction or already has a winner assigned'}, status: 406 unless product
+
+      customer  = CustomerUser.includes(:on_site_customer_auctions)
+                              .find_by(customer_auctions: { palette_number: params[:palette_number], auction_id: params[:auction_id] })
+      return render json: { errors: 'No exist this palette number to a client' }, status: 406 unless customer
+
+      if product.update(winner_id: customer.id, state: Product::STATE_SOLD)
+        render json: { product: ProductSerializer.new(product) }, status: 200
+      else
+        render json: {errors: product.errors.messages}, status: 406
+      end
+    end
+
+    def bidding
+      product = Product.find_by(id: params[:id], state: Product::STATE_INITIAL)
+      return render json: { errors: "Product's state is not initial" }, status: 406 unless product
+
+      if product.update(state: Product::STATE_BIDDING)
+        render json: { product: ProductSerializer.new(product) }, status: 200
+      else
+        render json: {errors: product.errors.messages}, status: 406
       end
     end
 

@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_10_22_032239) do
+ActiveRecord::Schema.define(version: 2020_11_22_142315) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -57,6 +57,18 @@ ActiveRecord::Schema.define(version: 2020_10_22_032239) do
     t.datetime "start_at"
     t.boolean "started", default: false
     t.integer "time_bit"
+    t.string "uuid"
+  end
+
+  create_table "bids", force: :cascade do |t|
+    t.bigint "user_id", null: false
+    t.bigint "product_id", null: false
+    t.decimal "current_value", null: false
+    t.decimal "value", null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["product_id"], name: "index_bids_on_product_id"
+    t.index ["user_id"], name: "index_bids_on_user_id"
   end
 
   create_table "categories", force: :cascade do |t|
@@ -73,6 +85,8 @@ ActiveRecord::Schema.define(version: 2020_10_22_032239) do
     t.boolean "paid", default: false
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+    t.string "palette_number"
+    t.string "ubication"
     t.index ["auction_id"], name: "index_customer_auctions_on_auction_id"
     t.index ["user_id"], name: "index_customer_auctions_on_user_id"
   end
@@ -120,6 +134,8 @@ ActiveRecord::Schema.define(version: 2020_10_22_032239) do
     t.integer "unit_of_measure", default: 0
     t.string "place_of_delivery"
     t.bigint "seller_id", null: false
+    t.bigint "winner_id"
+    t.string "state"
     t.index ["article_id"], name: "index_products_on_article_id"
     t.index ["auction_id"], name: "index_products_on_auction_id"
     t.index ["seller_id"], name: "index_products_on_seller_id"
@@ -156,7 +172,10 @@ ActiveRecord::Schema.define(version: 2020_10_22_032239) do
     t.bigint "invited_by_id"
     t.integer "invitations_count", default: 0
     t.boolean "active", default: true
+    t.string "uuid"
+    t.string "identification_number"
     t.index ["email"], name: "index_users_on_email", unique: true
+    t.index ["identification_number"], name: "index_users_on_identification_number", unique: true
     t.index ["invitation_token"], name: "index_users_on_invitation_token", unique: true
     t.index ["invitations_count"], name: "index_users_on_invitations_count"
     t.index ["invited_by_id"], name: "index_users_on_invited_by_id"
@@ -166,10 +185,13 @@ ActiveRecord::Schema.define(version: 2020_10_22_032239) do
 
   add_foreign_key "active_storage_attachments", "active_storage_blobs", column: "blob_id"
   add_foreign_key "articles", "categories"
+  add_foreign_key "bids", "products"
+  add_foreign_key "bids", "users"
   add_foreign_key "customer_auctions", "auctions"
   add_foreign_key "customer_auctions", "users"
   add_foreign_key "favourites", "users"
   add_foreign_key "on_site_users", "auctions"
   add_foreign_key "products", "auctions"
   add_foreign_key "products", "sellers"
+  add_foreign_key "products", "users", column: "winner_id"
 end

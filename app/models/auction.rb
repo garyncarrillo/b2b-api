@@ -15,7 +15,7 @@ class Auction < ApplicationRecord
   has_many :customer_auctions, dependent: :destroy
   has_many :customers, through: :customer_auctions, foreign_key: :user_id
   has_many :favourites, as: :favouritable, dependent: :destroy
-  has_many :products, dependent: :destroy
+  has_many :products, -> { order(:id => :desc) }, dependent: :destroy
   has_many :on_site_users, dependent: :destroy
 
   has_one_attached :terms_and_conditions_file
@@ -32,5 +32,17 @@ class Auction < ApplicationRecord
     event :publish do
       transitions from: :new, to: :scheduled
     end
+
+    event :start, after: :started_nofitification do
+      transitions from: :scheduled, to: :started
+    end
+
+    event :finish do
+      transitions from: :started, to: :finished
+    end
+  end
+
+  def started_nofitification
+    AuctionStartingNotificationWorker.perform_async(self.id)
   end
 end

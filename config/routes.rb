@@ -67,21 +67,44 @@ Rails.application.routes.draw do
         put :publish
         put :assign_products
         get :customers
+        put :start
+        put :finish
       end
     end
     resources :categories, except: %i(new edit show)
     resources :articles, except: %i(new edit show)
-    resources :products, except: %i(new edit)
+
+    resources :products, except: %i(new edit) do
+      member do
+        get :bids
+        get :'bids/last', controller: :products, action: :last_bid
+        post :assign_winner
+        post :bidding
+      end
+    end
     resources :sellers, except: %i(new edit show)
-    resources :on_site_users, except: %i(new edit show)
+    resources :on_site_users, except: %i(new edit show) do
+      member do
+        post :assign_palette
+        delete :unassign_palette
+      end
+
+      collection do
+        get :verify
+      end
+    end
     resource :global_data, only: %i(show)
     resources :users, except: %i(new show)
+    resources :bids, only: %i(create index)
 
     resources :customers, only: %i(index) do
       member do
         post :approve_pay
         post :activate
         delete :deactivate
+      end
+      collection do
+        get :search
       end
     end
 
