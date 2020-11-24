@@ -1,3 +1,3 @@
 class UserSerializer < BaseSerializer
-  attributes :id, :email, :first_name, :last_name, :company, :phone, :role, :uuid
+  attributes :id, :email, :first_name, :last_name, :company, :phone, :role, :uuid, :type
 end

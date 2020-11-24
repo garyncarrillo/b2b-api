@@ -1,4 +1,8 @@
 class Product < ApplicationRecord
+  STATE_INITIAL = 'initial'
+  STATE_BIDDING = 'bidding'
+  STATE_SOLD = 'sold'
+
   enum currency: [:cop, :dollar]
   enum unit_of_measure: [:u, :kg, :lt]
 
@@ -16,10 +20,11 @@ class Product < ApplicationRecord
   has_one_attached :attached_1_file
   has_one_attached :attached_2_file
   has_many_attached :images
-  has_many_attached :bids
 
   belongs_to :auction, optional: true
   belongs_to :article
   belongs_to :seller
+  belongs_to :winner, class_name: 'User', foreign_key: :winner_id, optional: true
   has_many :favourites, as: :favouritable
+  has_many :bids
 end
