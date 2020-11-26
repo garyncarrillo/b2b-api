@@ -135,7 +135,7 @@ ActiveRecord::Schema.define(version: 2020_11_22_142315) do
     t.string "place_of_delivery"
     t.bigint "seller_id", null: false
     t.bigint "winner_id"
-    t.string "state"
+    t.string "state", default: "initial"
     t.index ["article_id"], name: "index_products_on_article_id"
     t.index ["auction_id"], name: "index_products_on_auction_id"
     t.index ["seller_id"], name: "index_products_on_seller_id"

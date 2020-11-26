@@ -37,12 +37,19 @@ class Auction < ApplicationRecord
       transitions from: :scheduled, to: :started
     end
 
-    event :finish do
+    event :finish, after: :finished_notification do
       transitions from: :started, to: :finished
     end
   end
 
   def started_nofitification
+    self.started = true
+    self.save
     AuctionStartingNotificationWorker.perform_async(self.id)
+  end
+
+  def finished_notification
+    self.started = false
+    self.save
   end
 end
