@@ -1,14 +1,14 @@
 class SendBidAuctionWorker
   include Sidekiq::Worker
 
-  def perform(*args)
+  def perform(auction_id, id)
     auction = Auction.find(auction_id)
     bid = Bid.find(id)
 
     message = {
-      rooms: auction.uuid,
+      room: auction.uuid,
       data: {
-        auction_id: auction_id,
+        auction_id: auction.id,
         bid: bid.current_value,
         bid: bid.value
       }

@@ -8,7 +8,7 @@ module Admin
       bid = current_admin_user.bids.new(bid_params)
 
       if bid.save
-        SendBidAuctionWorker.perform_async(bid.id, bid.product.auction.id)
+        SendBidAuctionWorker.perform_async(bid.product.auction.id, bid.id)
         render json: {bid: BidSerializer.new(bid,
           {
             include: [:user]
