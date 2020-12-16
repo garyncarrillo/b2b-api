@@ -41,6 +41,8 @@ Rails.application.routes.draw do
     resources :products, only: %i(index show) do
       member do
         resource :favourite, only: %i(create destroy), controller: 'product_favourites'
+        get :'bids/last', controller: :products, action: :last_bid
+        get :bids
       end
     end
 
@@ -58,6 +60,7 @@ Rails.application.routes.draw do
     end
 
     resources :sellers, only: %i(show)
+    resources :bids, only: %i(create index)
   end
 
   namespace :admin do

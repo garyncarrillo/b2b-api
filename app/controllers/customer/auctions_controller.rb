@@ -15,7 +15,7 @@ module Customer
     def show
       auction = Auction.find(params[:id])
       auction = AuctionDecorator.decorate(auction, context: {user: current_customer_user})
-      render json: AuctionSerializer.new(auction), status:200
+      render json: AuctionSerializer.new(auction, {include: [:products]}), status:200
     end
 
     def search
