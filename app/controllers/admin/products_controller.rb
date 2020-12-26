@@ -95,7 +95,11 @@ module Admin
       return render json: { errors: 'No exist this palette number to a client' }, status: 406 unless customer
 
       if product.update(winner_id: customer.id, state: Product::STATE_SOLD)
-        render json: { product: ProductSerializer.new(product) }, status: 200
+        render json: { product: ProductSerializer.new(product,
+            {
+              include: [:winner]
+            }
+          ) }, status: 200
       else
         render json: {errors: product.errors.messages}, status: 406
       end
@@ -108,7 +112,11 @@ module Admin
       customer = CustomerUser.find(params[:customer_id])
 
       if product.update(winner_id: customer.id, state: Product::STATE_SOLD)
-        render json: { product: ProductSerializer.new(product) }, status: 200
+        render json: { product: ProductSerializer.new(product,
+            {
+              include: [:winner]
+            }
+          ) }, status: 200
       else
         render json: {errors: product.errors.messages}, status: 406
       end

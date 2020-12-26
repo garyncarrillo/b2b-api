@@ -44,4 +44,5 @@ class ProductSerializer < BaseSerializer
   belongs_to :article
   belongs_to :seller
   has_many :bids
+  belongs_to :winner, class_name: 'User', id_method_name: :winner_id
 end
