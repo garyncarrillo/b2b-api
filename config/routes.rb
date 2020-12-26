@@ -82,6 +82,7 @@ Rails.application.routes.draw do
         get :bids
         get :'bids/last', controller: :products, action: :last_bid
         post :assign_winner
+        post :assign_winner_on_line
         post :bidding
       end
     end

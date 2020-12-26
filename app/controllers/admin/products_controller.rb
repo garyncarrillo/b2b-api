@@ -101,6 +101,19 @@ module Admin
       end
     end
 
+    def assign_winner_on_line
+      product = Product.find_by(id: params[:id], state: 'bidding', winner_id: nil)
+      return render json: { errors: 'The status of this product is not up for auction or already has a winner assigned'}, status: 406 unless product
+
+      customer = CustomerUser.find(params[:customer_id])
+
+      if product.update(winner_id: customer.id, state: Product::STATE_SOLD)
+        render json: { product: ProductSerializer.new(product) }, status: 200
+      else
+        render json: {errors: product.errors.messages}, status: 406
+      end
+    end
+
     def bidding
       product = Product.find_by(id: params[:id], state: Product::STATE_INITIAL)
       return render json: { errors: "Product's state is not initial" }, status: 406 unless product
