@@ -79,7 +79,11 @@ module Admin
 
     def last_bid
       product =  Product.find(params[:id])
-      render json: { bid: BidSerializer.new( product.bids.last) }, status: 200
+      render json: { bid: BidSerializer.new( product.bids.last,
+          {
+            include: [:user]
+          }
+        ) }, status: 200
     end
 
     def assign_winner
