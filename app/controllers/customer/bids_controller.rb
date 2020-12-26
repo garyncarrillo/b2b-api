@@ -5,6 +5,10 @@ module Customer
                .find_by(product_id: bid_params[:product_id])
       return render json: { errors: 'There is already a bid for that value for the this product' }, status: 406 if bid
 
+      product = Product.find_by(id: bid_params[:product_id], state: 'bidding')
+      return render json: { errors: 'This product is not in the bidding process '}, status: 406 unless product
+
+
       bid = current_customer_user.bids.new(bid_params)
 
       if bid.save
