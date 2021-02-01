@@ -9,5 +9,19 @@ module Customer
       end
       render_resource(resource)
     end
+
+    private
+
+    def sign_up_params
+      params.require(:customer_user).permit(
+        :first_name,
+        :last_name,
+        :identification_number,
+        :company,
+        :email,
+        :password,
+        :phone
+      )
+    end
   end
 end
