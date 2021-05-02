@@ -69,17 +69,17 @@ module Admin
     end
 
     def bids
-      product =  Product.find(params[:id])
-      render json: { product: ProductSerializer.new(product,
+      bids =  Product.find(params[:id]).bids.where(auction_id: params[:auction_id])
+      render json: { bids: BidSerializer.new(bids,
         {
-          include: [:bids, :'bids.user']
+          include: [:user]
         }
       ) }, status: 200
     end
 
     def last_bid
-      product =  Product.find(params[:id])
-      render json: { bid: BidSerializer.new( product.bids.last,
+      bids =  Product.find(params[:id]).bids.where(auction_id: params[:auction_id])
+      render json: { bid: BidSerializer.new( bids.last,
           {
             include: [:user]
           }
